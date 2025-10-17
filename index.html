@@ -13,7 +13,7 @@
   --bg:#ffffff;
   --text:#141414;
   --radius:12px;
-  --top:72px;
+  --top:132px; /* raised to fit 4x header logo */
   --fade:220ms;
   --shadow:0 10px 22px rgba(0,0,0,.12), 0 2px 6px rgba(0,0,0,.06);
   --shadow-strong:0 20px 40px rgba(0,0,0,.18), 0 6px 16px rgba(0,0,0,.10);
@@ -33,15 +33,27 @@ body{
   height:var(--top);
   background:linear-gradient(145deg,#5e1e8c 0%, #8828c2 60%, #a95ad8 110%);
   color:#fff;
-  display:flex; align-items:center;
-  padding:0 20px;
+  display:flex; align-items:flex-end; /* drop content to bottom for baseline feel */
+  padding:16px 20px 14px;           /* bottom padding to breathe under wordmark */
   box-shadow:var(--shadow);
 }
-.brand{display:flex; align-items:center; gap:8px;}
-.brand .brand-logo{height:32px; width:auto;}
-.brand .wordmark{font-size:24px; font-weight:800; letter-spacing:.2px; color:#fff; white-space:nowrap;}
-.v-sep{width:1px; height:36px; background:rgba(255,255,255,.45); margin:0 16px;}
-.nav-left, .nav-right {display:flex; align-items:center; gap:8px;}
+.brand{
+  display:flex; align-items:flex-end; gap:10px; /* bottom alignment with text */
+}
+.brand .brand-logo{
+  height:128px; width:auto; display:block; /* 4x of previous 32px */
+  object-fit:contain;
+}
+.brand .wordmark{
+  font-size:32px; font-weight:800; letter-spacing:.2px; color:#fff; white-space:nowrap;
+  line-height:1; padding-bottom:6px; /* nudge to visually sit on same baseline */
+}
+.v-sep{
+  width:1px; height:40px; background:rgba(255,255,255,.45);
+  margin:0 16px;
+  align-self:flex-end; /* keep separator aligned with brand baseline */
+}
+.nav-left, .nav-right {display:flex; align-items:flex-end; gap:8px;}
 .nav-spacer{flex:1}
 .menu-btn{
   background:transparent;border:0;color:#fff;font-weight:700;
@@ -59,9 +71,17 @@ body{
   padding:40px 32px;
 }
 .splash-inner{max-width:900px}
-.splash-title{display:flex; align-items:center; gap:10px; margin:0 0 12px}
-.splash-title .brand-logo-hero{height:80px}
-.wordmark-hero{margin:0; line-height:.98; font-weight:800; color:#141414; font-size:60px;}
+.splash-title{
+  display:flex; align-items:flex-end; gap:14px; margin:0 0 12px;
+}
+.splash-title .brand-logo-hero{
+  height:320px; width:auto; display:block; /* 4x of previous 80px */
+  object-fit:contain;
+}
+.wordmark-hero{
+  margin:0; line-height:.96; font-weight:800; color:#141414;
+  font-size:72px; /* keeps text readable next to a very large mark */
+}
 .wordmark-hero span{display:block}
 
 /* ---------- Main ---------- */
@@ -168,12 +188,20 @@ footer{
   padding:28px 20px 16px;
 }
 .footer-inner{max-width:1100px; margin:0 auto}
-.footer-brand{display:flex; align-items:center; gap:10px; margin-bottom:6px;}
-.footer-brand .brand-logo{height:28px}
-.footer-brand .type{font-weight:800; line-height:1.02; margin:0; font-size:22px;}
+.footer-brand{
+  display:flex; align-items:flex-end; gap:12px; margin-bottom:10px;
+}
+.footer-brand .brand-logo{
+  height:112px; width:auto; display:block; /* 4x of previous 28px */
+  object-fit:contain;
+}
+.footer-brand .type{
+  font-weight:800; line-height:1.02; margin:0; font-size:34px;
+  padding-bottom:6px; /* nudge baseline to align with logo bottom */
+}
 .footer-brand .type span{display:block}
 .footer-legal{
-  font-size:12px; opacity:.95; max-width:720px; margin-top:16px; white-space:pre-line;
+  font-size:12px; opacity:.95; max-width:720px; margin-top:6px; white-space:pre-line;
 }
 
 /* ---------- Toasts ---------- */
@@ -194,16 +222,21 @@ footer{
 }
 @keyframes barfade{from{width:100%} to{width:0%}}
 
-/* ---------- Responsive ---------- */
+/* ---------- Responsive tweaks for huge logo ---------- */
 @media (max-width:980px){
   .grid{grid-template-columns:repeat(2,1fr)}
-  .splash-title .brand-logo-hero{height:66px}
-  .wordmark-hero{font-size:54px}
+  .splash-title .brand-logo-hero{height:240px} /* soften on tablets */
+  .wordmark-hero{font-size:60px}
+  :root{ --top:120px; }
+  .brand .brand-logo{height:112px}
 }
 @media (max-width:640px){
   .grid{grid-template-columns:1fr}
-  .splash-title .brand-logo-hero{height:56px}
+  .splash-title .brand-logo-hero{height:180px}
   .wordmark-hero{font-size:46px}
+  :root{ --top:104px; }
+  .brand .brand-logo{height:96px}
+  .brand .wordmark{font-size:28px; padding-bottom:4px}
   .toast{min-width:260px}
 }
 </style>
@@ -355,12 +388,10 @@ No returns or exchanges
 
   // Toasts
   const toasts = document.getElementById('toasts');
-
   function showToast(text){
     const t = document.createElement('div');
     t.className = 'toast';
     t.innerHTML = `<div>${text}</div><div class="bar"></div>`;
-    // newest on top -> column-reverse, so append keeps stacking bottom; use prepend for explicit newest-on-top order
     toasts.appendChild(t);
     setTimeout(()=>{ t.remove(); }, 3000);
   }
@@ -444,7 +475,7 @@ No returns or exchanges
       const sel = btn.getAttribute('data-scroll');
       const target = document.querySelector(sel);
       if (!target) return;
-      const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--top')) || 72;
+      const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--top')) || 132;
       const y = target.getBoundingClientRect().top + window.pageYOffset - headerH + 10;
       window.scrollTo({ top: y, behavior: 'smooth' });
     });
@@ -454,7 +485,7 @@ No returns or exchanges
   if (browseBtn){
     browseBtn.addEventListener('click', ()=>{
       const target = document.querySelector('#view-products');
-      const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--top')) || 72;
+      const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--top')) || 132;
       const y = target.getBoundingClientRect().top + window.pageYOffset - headerH + 10;
       window.scrollTo({ top: y, behavior: 'smooth' });
     });
