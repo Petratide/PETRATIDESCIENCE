@@ -40,12 +40,8 @@ body{
 .brand{display:flex; align-items:center; gap:8px;}
 .brand .brand-logo{height:32px; width:auto;}
 .brand .wordmark{font-size:24px; font-weight:800; letter-spacing:.2px; color:#fff; white-space:nowrap;}
-.v-sep{
-  width:1px; height:36px; background:rgba(255,255,255,.45);
-  margin:0 16px;
-}
+.v-sep{width:1px; height:36px; background:rgba(255,255,255,.45); margin:0 16px;}
 .nav-left, .nav-right {display:flex; align-items:center; gap:8px;}
-.nav-left{margin-left:0}
 .nav-spacer{flex:1}
 .menu-btn{
   background:transparent;border:0;color:#fff;font-weight:700;
@@ -65,22 +61,15 @@ body{
 .splash-inner{max-width:900px}
 .splash-title{display:flex; align-items:center; gap:10px; margin:0 0 12px}
 .splash-title .brand-logo-hero{height:80px}
-.wordmark-hero{
-  margin:0; line-height:.98; font-weight:800; color:#141414;
-  font-size:60px;
-}
+.wordmark-hero{margin:0; line-height:.98; font-weight:800; color:#141414; font-size:60px;}
 .wordmark-hero span{display:block}
-/* removed tagline */
 
 /* ---------- Main ---------- */
 main{padding:32px; padding-top:24px}
 h3.section-title{color:#141414; font-size:28px; margin:10px 0 20px}
 
 /* ---------- Cards & Layout ---------- */
-.card{
-  background:#fff; border-radius:var(--radius); box-shadow:var(--shadow);
-  padding:16px; text-align:left;
-}
+.card{background:#fff; border-radius:var(--radius); box-shadow:var(--shadow); padding:16px; text-align:left;}
 .card h4{margin:0 0 10px; color:var(--accent)}
 .card p,.card li{color:#333; font-size:14.5px}
 
@@ -93,10 +82,7 @@ h3.section-title{color:#141414; font-size:28px; margin:10px 0 20px}
   box-shadow:var(--shadow);
   padding:16px;
 }
-.img-ph{
-  width:100%; height:150px; border-radius:var(--radius);
-  background:rgba(255,255,255,.1);
-}
+.img-ph{width:100%; height:150px; border-radius:var(--radius); background:rgba(255,255,255,.1)}
 .product-title{margin:12px 0 4px; font-size:16px; color:#fff}
 .sub{color:#f3e9fb; font-size:13px; margin-bottom:10px}
 
@@ -110,9 +96,19 @@ h3.section-title{color:#141414; font-size:28px; margin:10px 0 20px}
 .btn-primary{ color:var(--accent); font-weight:800; } /* Add to Cart */
 .btn-info{ color:#111; font-weight:700; font-size:13px; padding:8px 12px } /* smaller */
 .btn.disabled{ background:#eee; color:#aaa; cursor:not-allowed; box-shadow:none }
+.actions{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
 
-/* Row for card buttons */
-.actions{display:flex; align-items:center; gap:10px}
+/* Quantity stepper */
+.qty{
+  display:flex; align-items:center; gap:6px;
+  background:#fff; border-radius:10px; padding:6px; box-shadow:0 2px 8px rgba(0,0,0,.12);
+}
+.qty-btn{
+  width:28px; height:28px; border-radius:8px; border:0; background:#f3f3f6; color:#111; font-weight:900; cursor:pointer;
+}
+.qty-num{
+  min-width:22px; text-align:center; font-weight:800; color:#111; background:#fff; border-radius:8px; padding:4px 6px;
+}
 
 /* ---------- Quick Look (Info Modal) ---------- */
 .ql-overlay{
@@ -163,7 +159,6 @@ h3.section-title{color:#141414; font-size:28px; margin:10px 0 20px}
 }
 .cart-item-title{font-weight:700}
 .cart-item-dose{color:#666; font-size:12px}
-.remove{background:transparent; border:0; color:#c0392b; font-weight:800; cursor:pointer}
 
 /* ---------- Footer (Legal) ---------- */
 footer{
@@ -172,23 +167,32 @@ footer{
   color:#fff;
   padding:28px 20px 16px;
 }
-.footer-inner{
-  max-width:1100px; margin:0 auto; position:relative; display:grid; grid-template-columns:1fr; gap:10px;
-}
-.footer-brand{
-  display:flex; align-items:center; gap:10px;
-}
+.footer-inner{max-width:1100px; margin:0 auto}
+.footer-brand{display:flex; align-items:center; gap:10px; margin-bottom:6px;}
 .footer-brand .brand-logo{height:28px}
-.footer-brand .type{
-  font-weight:800; line-height:1.02; margin:0; font-size:22px;
-}
+.footer-brand .type{font-weight:800; line-height:1.02; margin:0; font-size:22px;}
 .footer-brand .type span{display:block}
-
-/* legal small block near bottom-left */
 .footer-legal{
-  font-size:12px; opacity:.95; max-width:680px; margin-top:10px;
-  white-space:pre-line;
+  font-size:12px; opacity:.95; max-width:720px; margin-top:16px; white-space:pre-line;
 }
+
+/* ---------- Toasts ---------- */
+.toasts{
+  position:fixed; right:16px; bottom:16px;
+  display:flex; flex-direction:column-reverse; gap:10px; /* newest on top */
+  z-index:2000;
+}
+.toast{
+  background:#0f0f12; color:#fff; border-radius:12px;
+  min-width:320px; max-width:420px;
+  box-shadow:var(--shadow);
+  padding:12px 14px 16px; font-size:14px; line-height:1.4; position:relative; overflow:hidden;
+}
+.toast .bar{
+  position:absolute; left:0; bottom:0; height:3px; background:var(--accent); width:100%;
+  animation:barfade 3s linear forwards;
+}
+@keyframes barfade{from{width:100%} to{width:0%}}
 
 /* ---------- Responsive ---------- */
 @media (max-width:980px){
@@ -200,6 +204,7 @@ footer{
   .grid{grid-template-columns:1fr}
   .splash-title .brand-logo-hero{height:56px}
   .wordmark-hero{font-size:46px}
+  .toast{min-width:260px}
 }
 </style>
 </head>
@@ -235,8 +240,6 @@ footer{
         <span>Science</span>
       </h1>
     </div>
-    <!-- slogan removed -->
-    <!-- optional CTA kept for convenience -->
     <button class="primary" id="browseBtn">Browse products</button>
   </div>
 </section>
@@ -314,6 +317,9 @@ No returns or exchanges
   </div>
 </aside>
 
+<!-- Toasts -->
+<div class="toasts" id="toasts"></div>
+
 <script>
 (() => {
   /* -------- Data -------- */
@@ -345,7 +351,19 @@ No returns or exchanges
   const cart = document.getElementById('cart');
   const cartOverlay = document.getElementById('cartOverlay');
   const cartBody = document.getElementById('cartBody');
-  const cartMap = new Map(); // id -> product (limit 1)
+  const cartMap = new Map(); // id -> { p, qty }
+
+  // Toasts
+  const toasts = document.getElementById('toasts');
+
+  function showToast(text){
+    const t = document.createElement('div');
+    t.className = 'toast';
+    t.innerHTML = `<div>${text}</div><div class="bar"></div>`;
+    // newest on top -> column-reverse, so append keeps stacking bottom; use prepend for explicit newest-on-top order
+    toasts.appendChild(t);
+    setTimeout(()=>{ t.remove(); }, 3000);
+  }
 
   /* -------- Build Products -------- */
   function buildProducts(){
@@ -359,6 +377,11 @@ No returns or exchanges
         <h4 class="product-title">${p.name}</h4>
         <div class="sub">${p.dose}</div>
         <div class="actions">
+          <div class="qty" data-qty="${p.id}">
+            <button class="qty-btn" data-step="-" aria-label="decrease">−</button>
+            <div class="qty-num" data-num="${p.id}">1</div>
+            <button class="qty-btn" data-step="+" aria-label="increase">+</button>
+          </div>
           <button class="btn btn-primary" data-add="${p.id}">Add to Cart</button>
           <button class="btn btn-info" data-info="${p.id}">Info</button>
         </div>
@@ -376,14 +399,8 @@ No returns or exchanges
   }
 
   /* -------- Cart UI -------- */
-  function openCart(){
-    cart.classList.add('show');
-    cartOverlay.classList.add('show');
-  }
-  function closeCart(){
-    cart.classList.remove('show');
-    cartOverlay.classList.remove('show');
-  }
+  function openCart(){ cart.classList.add('show'); cartOverlay.classList.add('show'); }
+  function closeCart(){ cart.classList.remove('show'); cartOverlay.classList.remove('show'); }
   openCartBtn.addEventListener('click', openCart);
   closeCartBtn.addEventListener('click', closeCart);
   cartOverlay.addEventListener('click', closeCart);
@@ -394,18 +411,30 @@ No returns or exchanges
       cartBody.innerHTML = `<div style="color:#888; text-align:center; padding:16px 6px;">No products in your cart - yet!</div>`;
       return;
     }
-    for (const p of cartMap.values()){
+    for (const {p, qty} of cartMap.values()){
       const row = document.createElement('div');
       row.className = 'cart-item';
       row.innerHTML = `
         <div>
-          <div class="cart-item-title">${p.name}</div>
+          <div class="cart-item-title">${p.name} <span style="color:#777; font-weight:600;">× ${qty} vials</span></div>
           <div class="cart-item-dose">${p.dose}</div>
         </div>
         <button class="remove" data-remove="${p.id}">Remove</button>
       `;
       cartBody.appendChild(row);
     }
+  }
+
+  /* -------- Helpers -------- */
+  function getQtyForCard(id){
+    const numEl = productGrid.querySelector(`.qty-num[data-num="${id}"]`);
+    if (!numEl) return 1;
+    const n = parseInt(numEl.textContent.trim(), 10);
+    return isNaN(n) || n < 1 ? 1 : n;
+  }
+  function setQtyForCard(id, val){
+    const numEl = productGrid.querySelector(`.qty-num[data-num="${id}"]`);
+    if (numEl){ numEl.textContent = String(Math.max(1, val)); }
   }
 
   /* -------- Events -------- */
@@ -433,25 +462,41 @@ No returns or exchanges
 
   // Product grid clicks
   productGrid.addEventListener('click', (e)=>{
+    const step = e.target?.dataset?.step;
     const addId = e.target?.dataset?.add;
     const infoId = e.target?.dataset?.info;
 
+    // Quantity stepper
+    if (step){
+      const wrap = e.target.closest('.qty');
+      if (!wrap) return;
+      const id = wrap.getAttribute('data-qty');
+      let cur = getQtyForCard(id);
+      cur = step === '+' ? cur + 1 : Math.max(1, cur - 1);
+      setQtyForCard(id, cur);
+      return;
+    }
+
+    // Info modal
     if (infoId){
       const p = PRODUCTS.find(x=>x.id===infoId);
       if (p) openQuickLook(p);
       return;
     }
 
+    // Add to cart
     if (addId){
-      if (!cartMap.has(addId)){
-        const p = PRODUCTS.find(x=>x.id===addId);
-        if (p) cartMap.set(addId, p);
-        const btn = e.target;
-        btn.classList.add('disabled');
-        btn.textContent = 'Added';
-        renderCart();
-        openCart(); // open to show change
+      const p = PRODUCTS.find(x=>x.id===addId);
+      if (!p) return;
+      const addQty = getQtyForCard(addId);
+      if (cartMap.has(addId)){
+        const entry = cartMap.get(addId);
+        entry.qty += addQty;
+      } else {
+        cartMap.set(addId, { p, qty: addQty });
       }
+      renderCart();
+      showToast(`${p.name} has been added to your order (x ${addQty})`);
       return;
     }
   });
@@ -461,17 +506,15 @@ No returns or exchanges
     const remId = e.target?.dataset?.remove;
     if (!remId) return;
     cartMap.delete(remId);
-    const addBtn = document.querySelector(`[data-add="${remId}"]`);
-    if (addBtn){
-      addBtn.classList.remove('disabled');
-      addBtn.textContent = 'Add to Cart';
-    }
     renderCart();
   });
 
   /* -------- Boot -------- */
-  buildProducts();
-  renderCart();
+  function init(){
+    buildProducts();
+    renderCart();
+  }
+  init();
 })();
 </script>
 </body>
